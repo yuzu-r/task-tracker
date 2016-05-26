@@ -1,0 +1,25 @@
+working on helpers.
+
+model for Teacher
+has_many :classrooms
+has_many :students, through: :classrooms
+
+model for Student
+has_many :classrooms
+has_many :teachers, through: :classrooms
+
+model for Classroom
+belongs_to :teacher
+belongs_to :student
+
+t=Teacher.first
+
+t.teaching?(student)
+t.teach(student)
+t.unteach(student)
+
+t.classrooms.find(student)  <= returns the classroom id
+
+c=Classroom.first
+c.student <= returns the student associated with the first classroom
+

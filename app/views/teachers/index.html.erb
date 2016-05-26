@@ -1,0 +1,12 @@
+<h2>Teacher Index</h2>
+
+<br>
+<%= link_to 'New Teacher', new_teacher_path %>
+<%= link_to 'New Student', new_student_path %>
+<hr>
+<br>
+
+<% @teachers.each do |t| %>
+  <%= link_to "#{t.name}", teacher_path(t) %>
+  <br>
+<% end %>

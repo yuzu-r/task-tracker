@@ -1,0 +1,29 @@
+<h2>Teacher Details</h2>
+<%= link_to 'New Classroom', '#' %>
+<%= link_to 'Teacher Index', teachers_path %>
+<%= link_to 'Student Index', students_path %>
+<br><br>
+Teacher Name: <%= @teacher.name %>
+<br><br>
+This teacher has the following students:
+  <% @teacher.students.each do |s| %>
+    <p>
+      <%= s.name %>
+      <%= form_for(@teacher.classrooms.find_by(student_id: s.id), 
+        html: {method: :delete}) do |f| %>
+        <%= f.submit 'Stop Teaching' %>
+      <% end %>
+    </p>
+  <% end %>
+<br><br>
+This teacher is not teaching the following students:
+  <% @all_students.each do |s| %>
+    <% if !@teacher.teaching?(s) %>
+      <%= s.name %>
+      <%= form_for(@teacher.classrooms.build) do |f| %>
+        <%= hidden_field_tag :student_id, s.id %>
+        <%= f.submit 'Start Teaching' %>
+      <% end %>
+    <% end %>
+    <br>
+  <% end %>
